@@ -12,20 +12,17 @@ function submitForm() {
         email: contact.elements.namedItem('email').value,
         subject: contact.elements.namedItem('need').value,
         message: contact.elements.namedItem('message').value
-
     }
-
 
     var ajax = new XMLHttpRequest();
 
     ajax.onreadystatechange = function() {
-        console.log(this.readyState);
+        console.log(this);
         console.log(this.status);
-        if (this.readyState == 4 && this.status == 200) {
+        if (this.readyState == 4 && this.status == 201) {
           var data = JSON.parse(this.responseText);
           console.log("sucess");
           //reset form
-
 
           //display a sucess message in green
           var success = document.getElementById('success');
