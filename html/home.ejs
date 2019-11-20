@@ -11,5 +11,14 @@
         <h1 style="color:red">This is the home page</h1> 
         <h3><a href="./about">Read About us</a></h3>
         <h3><a href="./contact">Contact us</a></h3>
+
+        <h2>Products</h2>
+        
+        <% products.forEach(function(product){ %>
+            <%- include('product', product); %>
+        <% }); %>
+
+    
+        <%- include('footer'); %>   
     </body>
 </html>

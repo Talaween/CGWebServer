@@ -26,9 +26,15 @@ const databaseData = {
 //get request on the root
 app.get('/', function(req, res) {
     let data = {
-        title: "Cubic Games Studio"
+        title: "Cubic Games Studio",
+        products: [
+            {title:"xBox", pathToImg:"https://cdn.vox-cdn.com/thumbor/MtoMILchLDGo28wcKbegkcm0L9c=/0x0:950x623/1200x800/filters:focal(399x236:551x388)/cdn.vox-cdn.com/uploads/chorus_image/image/60988327/Xbox_One_X_Screenshot_05.0.jpg"},
+            {title:"PS4", pathToImg:"https://cdn.mos.cms.futurecdn.net/2P4QiZubHpgmGsujBa5RU5-768-80.jpg"},
+            {title:"Controllers", pathToImg:"https://images-na.ssl-images-amazon.com/images/I/81PROQJmyOL._SL1500_.jpg"},
+            {title:"DVDs", pathToImg:"https://d2h1pu99sxkfvn.cloudfront.net/b0/4483915/424032901_Xjgo3WfzEk/P0.jpg"}
+        ]
     }
-    ejs.renderFile('./html/index.ejs', data, null, function(err, str){
+    ejs.renderFile('./html/home.ejs', data, null, function(err, str){
         // str => Rendered HTML string
         res.send(str);
     });
