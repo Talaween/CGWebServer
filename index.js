@@ -7,6 +7,8 @@ const db = require('./database');
 //create an express app
 var app = express();
 
+var ejs = require('ejs');
+
 const path = require('path');
 app.use(parser.json());
 app.use(express.static('public'));
@@ -22,17 +24,33 @@ const databaseData = {
 
 //add a callback function to handle 
 //get request on the root
-app.get('/', function(req, res) {  
-    res.sendFile(path.join(__dirname+'/html/index.html'));
+app.get('/', function(req, res) {
+    let data = {
+        title: "Cubic Games Studio"
+    }
+    ejs.renderFile('./html/index.ejs', data, null, function(err, str){
+        // str => Rendered HTML string
+        res.send(str);
+    });
 });
 
 app.get('/about', function(req, res) {  
-    res.sendFile(path.join(__dirname+'/html/about.html'));
-});
+    let data = {
+        title: "About Cubic Games"
+    }
+    ejs.renderFile('./html/about.ejs', data, null, function(err, str){
+        // str => Rendered HTML string
+        res.send(str);
+    });});
 
-app.get('/contact', function(req, res) {  
-    res.sendFile(path.join(__dirname+'/html/contact.html'));
-});
+app.get('/contact', function(req, res) { 
+    let data = {
+        title: "Contact Cubic Games"
+    } 
+    ejs.renderFile('./html/contact.ejs', data, null, function(err, str){
+        // str => Rendered HTML string
+        res.send(str);
+    });});
 
 //this to create the tables insiode our db
 //remeber this should be password protected
