@@ -28,10 +28,10 @@ app.get('/', function(req, res) {
     let data = {
         title: "Cubic Games Studio",
         products: [
-            {title:"xBox", pathToImg:"https://cdn.vox-cdn.com/thumbor/MtoMILchLDGo28wcKbegkcm0L9c=/0x0:950x623/1200x800/filters:focal(399x236:551x388)/cdn.vox-cdn.com/uploads/chorus_image/image/60988327/Xbox_One_X_Screenshot_05.0.jpg"},
-            {title:"PS4", pathToImg:"https://cdn.mos.cms.futurecdn.net/2P4QiZubHpgmGsujBa5RU5-768-80.jpg"},
-            {title:"Controllers", pathToImg:"https://images-na.ssl-images-amazon.com/images/I/81PROQJmyOL._SL1500_.jpg"},
-            {title:"DVDs", pathToImg:"https://d2h1pu99sxkfvn.cloudfront.net/b0/4483915/424032901_Xjgo3WfzEk/P0.jpg"}
+            {id:1, title:"xBox", pathToImg:"https://cdn.vox-cdn.com/thumbor/MtoMILchLDGo28wcKbegkcm0L9c=/0x0:950x623/1200x800/filters:focal(399x236:551x388)/cdn.vox-cdn.com/uploads/chorus_image/image/60988327/Xbox_One_X_Screenshot_05.0.jpg"},
+            {id: 2, title:"PS4", pathToImg:"https://cdn.mos.cms.futurecdn.net/2P4QiZubHpgmGsujBa5RU5-768-80.jpg"},
+            {id:3, title:"Controllers", pathToImg:"https://images-na.ssl-images-amazon.com/images/I/81PROQJmyOL._SL1500_.jpg"},
+            {id: 4, title:"DVDs", pathToImg:"https://d2h1pu99sxkfvn.cloudfront.net/b0/4483915/424032901_Xjgo3WfzEk/P0.jpg"}
         ]
     }
     ejs.renderFile('./html/home.ejs', data, null, function(err, str){
@@ -39,6 +39,18 @@ app.get('/', function(req, res) {
         res.send(str);
     });
 });
+
+app.get('/showproduct', function(req, res) {  
+
+    let id = req.query.id;
+
+    //show the template for a product page
+    //however fill the template with product id = the value of (id)
+
+    
+    res.send("<h3>You would like to show product id:" + id + " </h3>");
+
+    });
 
 app.get('/about', function(req, res) {  
     let data = {
