@@ -40,8 +40,9 @@ exports.createTables = function (conData, callback){
 		  database: conData.database
 		});
 		
-	let sql = "CREATE TABLE Contacts (id INT NOT NULL AUTO_INCREMENT, forename VARCHAR(32), surname VARCHAR(32), email VARCHAR(32), subject VARCHAR(2048), message TEXT, dateRecieved DATETIME, PRIMARY KEY (id))";
-	
+	let sql = "CREATE TABLE Contacts (id INT NOT NULL AUTO_INCREMENT, forename VARCHAR(32), surname VARCHAR(32), email VARCHAR(32), subject VARCHAR(2048), message TEXT, dateRecieved DATETIME, PRIMARY KEY (id));";
+
+	sql += "CREATE TABLE USERS (username VARCHAR(16) NOT NULL, password VARCHAR(16) NOT NULL, PRIMARY KEY (username)); "
 	con.query(sql, function (err, result) {
 		//console.log("finish query:" + result);
 		callback(err, result);
@@ -69,4 +70,24 @@ exports.addContact = function (conData, newContact, callback){
 			callback(err, result);
 		});
 	});
+}
+
+exports.login = function (connData, loginData, callback){
+
+	connect (connData, function (err, conn){
+
+		//when done check for any error
+		if (err) {
+			console.log("error in connecting to db:" + err)
+			callback(err);
+			return;
+		}
+		
+		//perform the query
+		conn.query('SELECT * FROM Users WHERE username = \'' + loginData.username + '\' AND password = \'' + loginData.password + '\'' , function (err, result) {
+			//return control to the calling module
+			callback(err, result);
+		});
+	})
+
 }

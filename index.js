@@ -1,16 +1,21 @@
 //import express module
 var express = require('express');
 var parser = require('body-parser');
-
-const db = require('./database');
+var session = require('express-session');
+var cookieParser = require('cookie-parser');
+var ejs = require('ejs');
+var path = require('path');
+var db = require('./database');
 
 //create an express app
 var app = express();
 
-var ejs = require('ejs');
+app.use(cookieParser());
+app.use(session({secret: "Your secret key"}));
 
-const path = require('path');
 app.use(parser.json());
+app.use(parser.urlencoded());
+
 app.use(express.static('public'));
 
 //prepare our database connection parameters
@@ -46,8 +51,6 @@ app.get('/showproduct', function(req, res) {
 
     //show the template for a product page
     //however fill the template with product id = the value of (id)
-
-    
     res.send("<h3>You would like to show product id:" + id + " </h3>");
 
     });
@@ -61,6 +64,50 @@ app.get('/about', function(req, res) {
         res.send(str);
     });});
 
+
+app.get('/protected', function (req, res){
+
+    if(req.session.user){
+        res.send("this is a secret mesasage jkawjk hjkh ajkh ak");
+    }
+    else{
+        res.redirect('/login')
+    }
+
+});
+app.get('/login', function (req,res){
+
+    res.sendFile(path.join(__dirname+'/html/login.html'))
+})
+app.post('/authenticate', function(req, res){
+
+    console.log(req.body)
+    let loginData = {
+        username : req.body.username,
+        password : req.body.password
+    }
+
+    db.login(databaseData, loginData, function(err, data){
+
+        if(err){
+
+        }
+        else{
+            if(data && data.length > 0){
+
+                req.session.user = data[0];
+                //you loged in 
+                //you can go to home page
+                res.redirect('/protected');
+            }
+            else
+            {
+                res.redirect('/login')
+            }
+        }
+    })
+
+});
 app.get('/contact', function(req, res) { 
     let data = {
         title: "Contact Cubic Games"
