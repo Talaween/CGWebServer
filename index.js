@@ -70,7 +70,7 @@ app.get('/about', function(req, res) {
 app.get('/protected', function (req, res){
 
     if(req.session.user){
-        res.send("this is a secret mesasage jkawjk hjkh ajkh ak");
+        res.sendFile(path.join(__dirname+'/html/protected.html'))
     }
     else{
         res.redirect('/login')
@@ -80,7 +80,8 @@ app.get('/protected', function (req, res){
 app.get('/login', function (req,res){
 
     res.sendFile(path.join(__dirname+'/html/login.html'))
-})
+});
+
 app.post('/authenticate', function(req, res){
 
     console.log(req.body)
@@ -110,6 +111,14 @@ app.post('/authenticate', function(req, res){
     })
 
 });
+
+app.get('/logout', function (req,res){
+
+    req.session.user = undefined;
+
+    res.send("you logged out successfully");
+
+})
 app.get('/contact', function(req, res) { 
     let data = {
         title: "Contact Cubic Games"
