@@ -10,6 +10,8 @@ var db = require('./database');
 //create an express app
 var app = express();
 
+//this comment was added on 8th Jan  2020
+
 app.use(cookieParser());
 app.use(session({secret: "Your secret key"}));
 
