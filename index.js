@@ -11,6 +11,7 @@ var db = require('./database');
 var app = express();
 
 //this comment was added on 8th Jan  2020
+//and this one too
 
 app.use(cookieParser());
 app.use(session({secret: "Your secret key"}));
